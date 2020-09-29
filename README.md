@@ -1,8 +1,11 @@
 # autowhatsapp
 automate messaging with whatsapp and logging friends' statuses
 
+## Requirements:
+selenium python module, firefox webdriver
+
 I'm working on it.
-#Current usages:
+## Current usages:
 >To log status info like time and no. of staus for each friend
 Run status_logger.py from command line. 
 
