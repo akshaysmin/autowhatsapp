@@ -1,0 +1,94 @@
+{
+search_box : "/html/body/div[1]/div/div/div[3]/div/div[1]/div/label/div/div[2]",
+contact_from_search_results : f'//*[@title="{contact}"]'
+
+}
+<span dir="auto" title="GroupA" class="_3ko75 _5h6Y_ _3Whw5">
+<span dir="auto" title="Tom" class="_3ko75 _5h6Y_ _3Whw5">
+
+<how to of send message aim="to specified contact from homepage">
+
+from selenium import webdriver
+import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
+
+contact = "Tom"
+message = "Sent with automation by python"
+
+driver = webdriver.Firefox(executable_path="D:\ProgramData\Python add-ons\geckodriver.exe")
+driver.get("https://web.whatsapp.com")
+
+#search
+xpath_search = "/html/body/div[1]/div/div/div[3]/div/div[1]/div/label/div/div[2]"
+search_box = WebDriverWait(driver,50).until(lambda driver: driver.find_element_by_xpath(xpath_search))
+search_box.click()
+search_box.send_keys(contact)
+
+#select
+driver.find_element_by_xpath(f'//*[@title="{contact}"]').click()
+
+#message
+msg_clickable = driver.find_element_by_xpath("//div[contains(@class, '_3uMse')]")
+msg_clickable.click()
+msg_typable = msg_clickable.find_element_by_tag_name("div").find_element_by_class_name("_3FRCZ")
+msg_typable.send_keys(message,Keys.ENTER)
+
+</how to of send message>
+
+<how to tabulate people with status update from homepage>
+
+#click status_button
+status_button = WebDriverWait(driver,50).until(lambda driver: driver.find_element_by_xpath('//*[@class="statusList"]'))
+status_button.click()
+time.sleep(2)
+status_list = driver.find_element_by_xpath('//*[@class="statusList"]').find_element_by_tag_name("span").find_elements_by_class_name("_210SC")
+for status in status_list:
+	try :
+		status_info = status.find_element_by_class_name("_2kHpK")
+		status_name = status_info.find_element_by_class_name("_3dtfX").text
+		status_time = status_info.find_element_by_class_name("_1582E").text
+		print(f"{status_name} : {status_time}")
+	except Exception as e:
+		print(e.__doc__)
+		#print(e.message)
+
+#return to homepage
+driver.find_element_by_xpath('//*[@class="_19n1B"]').click()
+
+#random things:
+data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABERERESERMVFRMaHBkcGiYjICAjJjoqLSotKjpYN0A3N0A3WE5fTUhNX06MbmJiboyiiIGIosWwsMX46/j///8BERERERIRExUVExocGRwaJiMgICMmOiotKi0qOlg3QDc3QDdYTl9NSE1fToxuYmJujKKIgYiixbCwxfjr+P/////CABEIAGAASAMBIgACEQEDEQH/xAAwAAACAwEBAAAAAAAAAAAAAAAEBQACAwYBAQADAQEAAAAAAAAAAAAAAAABAgMEAP/aAAwDAQACEAMQAAAA34ru+GKaPVjGWjqVLRWRiwFLfNaewxW892PHrpP8bSOnOHiONCK2rg0nk4H8L0iYV21q4ht3DdEUlzlyRqY/ZJwmlmMtGdiR6Lpp7geAC2GCXlIVb2yFYsvVpMLlVyyqgYpQU2kwjwecv0nMJpe3RMXk7FqLLRnsGMVJiud3/8QAKxAAAgIBAwMCBgIDAAAAAAAAAQIAAxEEEiExQVEQgQUGEyRCYSJxMoKi/9oACAEBAAE/APmOsGil/DxuTKl5E0nBEqrR6xkTXIKb2VOFZQSJolGS/hSR/tAIBPmBgNFjPVwYAWOBK1WvqCTNNfSGAOV/sSi+rCjcMkZAnxOxLLMo34dRNKoFTHHVsewi9IJ8xZUUE9A009WLhnuI1FrHCRdLclO5yS4bv02ynRW30fUp2i3O0luyz4hWarQnO3qB4EpGKaxjnbk+/MHp8bq+roLiBkqAZo7DmkMPIBlJCkGarVLbhUxtHUzSWGnT2EZ7YPkzXudVqK17bdh/sw4zx7QejhLK3RhlWBBE1mmWjUVrTebKx/z+pVYGXa3iU6YB8qgIPUT6TGgitAhifDL0cWnaygE8HmDk+t1zPSyjPTmPpSzBF6iV6O5f8kImn02ADEUASgg7gPxYg+/M1tQruJA4b0zEpBxjyIlKnKkAdxEYgbXAxLdlahgMj9dYo3DKkEStkQEHgzWPv2H9tj0zKQ24TYHQ54PebUZRLajvVlAIIIgOOniWHeUAU5PfxNRkEKfxyJmEytlAPGTPr9AeCOkV8Auvib+cZ7RLSpy4wvMrJDM5JXuRNQxYF/LkzdxC0sIXG3rt7QsLRlSMHg4MrvZTsYxGDx2OwD3HkTVX/bDAxu/jGUtWF34MfKEhhgxmmpO3T2kdQhmk1DaV+clCeRHIdVdO3IlN23KnoRxK27maps3VpgdznrL7iLSV4AleqptGy8Y/c1tQqUulgKzWH7a0eVhyEBIldttfKNx47GKxIVuzSu8cZ8RXe2+y1gQBwoxjgRxkxuJYcgif/8QAHhEAAgEEAwEAAAAAAAAAAAAAAAECEBESISIxUQP/2gAIAQIBAT8AZJiYqTEyNZPzZ0Rq447TISy0zFeEeqWUlkOOPQpcWyLp820tD5JjvFWr/8QAHxEBAAICAgMBAQAAAAAAAAAAAQARAiEDEBIiMTJR/9oACAEDAQE/AOP5MZW5zN5vXEyrqP25k2r1xm7WoMzWmJTXWLekmWNbJ5ZB9mf6ercXxmL5G54+wTlwb11ygoMPVC5gGSP8l7mn6T//2Q==
+
+#all selenium find element commands
+
+    find_element_by_id
+    find_element_by_name
+    find_element_by_xpath
+    find_element_by_link_text
+    find_element_by_partial_link_text
+    find_element_by_tag_name
+    find_element_by_class_name
+    find_element_by_css_selector
+
+To find multiple elements (these methods will return a list):
+
+    find_elements_by_name
+    find_elements_by_xpath
+    find_elements_by_link_text
+    find_elements_by_partial_link_text
+    find_elements_by_tag_name
+    find_elements_by_class_name
+    find_elements_by_css_selector
+
+#timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=0, hours=0, weeks=0)
+
+#xpath examples
+driver.find_element_by_xpath('//*[@class="_19n1B"]')
+driver.find_elment_by_xpath(“.//*[text()='Our People']”)
+
+#scrolling down
+scrollable = driver.find_element_by_class_name("_147Si")
+driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight",scrollable)
