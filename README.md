@@ -10,3 +10,5 @@ I'm working on it.
 Run status_logger.py from command line. 
 
 This opens whatsapp web website. Scan the QR code using your whatsapp, then click to view status list. Now press Enter in the terminal as prompted to record status info on the file "status_log.dat"
+
+## for people who want to work on this:
